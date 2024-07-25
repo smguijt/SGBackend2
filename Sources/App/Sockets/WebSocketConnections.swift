@@ -1,9 +1,10 @@
 import Vapor
-
+import NIO
+import NIOConcurrencyHelpers
 
 final class WebSocketConnections {
-    var connections: [UUID: WebSocket] = [:]
-    let lock = Lock()
+    private var connections: [UUID: WebSocket] = [:]
+    private let lock = Lock()
 
     func add(_ ws: WebSocket) {
         let id = UUID()
