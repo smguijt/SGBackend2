@@ -24,6 +24,7 @@ public func configure(_ app: Application) async throws {
     
     // register routes
     try routes(app)
+    
     // register websocket
     try webSocketRoute(app)
 }

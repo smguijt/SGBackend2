@@ -3,8 +3,6 @@ import Vapor
 
 func webSocketRoute(_ app: Application, _ socketName: String = "echo") throws {
 
-    //var activeWebSockets = Set<WebSocket>()
-    
     app.webSocket("\(socketName)") { req, ws in
       print("WebSocket -> \(socketName): connected")
         
