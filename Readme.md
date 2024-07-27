@@ -8,15 +8,42 @@ using WebSockets and REST integrations.
 - Application for maintaining users. It will setup user information like user data, user roles, user groups
 - This server will be running on default port 5001, but port is changeable using environment variables.
 
+Pitch:
+++++++
+- Option to add user
+- Option to add roles to user
+- Option to add login credentials to user
+    - Option to send email for confirmation
+- Option to change password for user
+- Option to generate JWT
+
                     
 #Event Management Service
 - Application for maintaining events.
 - This server will be running on default port 5002, but port is changeable using environment variables.
 
+Pitch:
+++++++
+- Option to create Event
+    - Option to add Serie to event
+        - Option to add Teams to serie
+            - Option to add Players to team
+                - Option to add scorecard to player
+                    - Option to add player score result
+            - Option to add scorecard to team
+                - Option to add team score result
+        - Option to add Players to serie
+            - Option to add scorecard to player
+                - Option to add player score result
+- Screen for online registration to event
+
 
 #Task Management Service
 - Application for maintaining tasks.
 - This server will be running on default port 5003, but port is changeable using environment variables.
+
+Pitch:
+++++++
 - Screen to display overview of available tasks
     - Option to change task status 
     - Oprion to create new task
