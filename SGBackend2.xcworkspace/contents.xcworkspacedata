@@ -7,14 +7,302 @@
    <Group
       location = "group:UserManagement"
       name = "UserManagement">
+      <FileRef
+         location = "group:docker-compose.yml">
+      </FileRef>
+      <FileRef
+         location = "group:Dockerfile">
+      </FileRef>
+      <FileRef
+         location = "group:LICENSE">
+      </FileRef>
+      <FileRef
+         location = "group:Package.resolved">
+      </FileRef>
+      <FileRef
+         location = "group:Package.swift">
+      </FileRef>
+      <Group
+         location = "group:Public"
+         name = "Public">
+      </Group>
+      <Group
+         location = "group:Resources"
+         name = "Resources">
+         <Group
+            location = "group:Views"
+            name = "Views">
+            <FileRef
+               location = "group:index.leaf">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Sources"
+         name = "Sources">
+         <Group
+            location = "group:App"
+            name = "App">
+            <FileRef
+               location = "group:entrypoint.swift">
+            </FileRef>
+            <Group
+               location = "group:Migrations"
+               name = "Migrations">
+               <FileRef
+                  location = "group:CreateTodo.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:configure.swift">
+            </FileRef>
+            <Group
+               location = "group:Sockets"
+               name = "Sockets">
+               <FileRef
+                  location = "group:WebSockets.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:WebSocketConnections.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Models"
+               name = "Models">
+               <FileRef
+                  location = "group:Todo.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:DTOs"
+               name = "DTOs">
+               <FileRef
+                  location = "group:TodoDTO.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Controllers"
+               name = "Controllers">
+               <FileRef
+                  location = "group:TodoController.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:routes.swift">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Tests"
+         name = "Tests">
+         <Group
+            location = "group:AppTests"
+            name = "AppTests">
+            <FileRef
+               location = "group:AppTests.swift">
+            </FileRef>
+         </Group>
+      </Group>
    </Group>
    <Group
       location = "group:TaskManagement"
       name = "TaskManagement">
+      <FileRef
+         location = "group:docker-compose.yml">
+      </FileRef>
+      <FileRef
+         location = "group:Dockerfile">
+      </FileRef>
+      <FileRef
+         location = "group:LICENSE">
+      </FileRef>
+      <FileRef
+         location = "group:Package.resolved">
+      </FileRef>
+      <FileRef
+         location = "group:Package.swift">
+      </FileRef>
+      <Group
+         location = "group:Public"
+         name = "Public">
+      </Group>
+      <Group
+         location = "group:Resources"
+         name = "Resources">
+         <Group
+            location = "group:Views"
+            name = "Views">
+            <FileRef
+               location = "group:index.leaf">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Sources"
+         name = "Sources">
+         <Group
+            location = "group:App"
+            name = "App">
+            <FileRef
+               location = "group:entrypoint.swift">
+            </FileRef>
+            <Group
+               location = "group:Migrations"
+               name = "Migrations">
+               <FileRef
+                  location = "group:CreateTodo.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:configure.swift">
+            </FileRef>
+            <Group
+               location = "group:Sockets"
+               name = "Sockets">
+               <FileRef
+                  location = "group:WebSockets.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:WebSocketConnections.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Models"
+               name = "Models">
+               <FileRef
+                  location = "group:Todo.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:DTOs"
+               name = "DTOs">
+               <FileRef
+                  location = "group:TodoDTO.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Controllers"
+               name = "Controllers">
+               <FileRef
+                  location = "group:TodoController.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:routes.swift">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Tests"
+         name = "Tests">
+         <Group
+            location = "group:AppTests"
+            name = "AppTests">
+            <FileRef
+               location = "group:AppTests.swift">
+            </FileRef>
+         </Group>
+      </Group>
    </Group>
    <Group
       location = "group:EventManagement"
       name = "EventManagement">
+      <FileRef
+         location = "group:docker-compose.yml">
+      </FileRef>
+      <FileRef
+         location = "group:Dockerfile">
+      </FileRef>
+      <FileRef
+         location = "group:LICENSE">
+      </FileRef>
+      <FileRef
+         location = "group:Package.resolved">
+      </FileRef>
+      <FileRef
+         location = "group:Package.swift">
+      </FileRef>
+      <Group
+         location = "group:Public"
+         name = "Public">
+      </Group>
+      <Group
+         location = "group:Resources"
+         name = "Resources">
+         <Group
+            location = "group:Views"
+            name = "Views">
+            <FileRef
+               location = "group:index.leaf">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Sources"
+         name = "Sources">
+         <Group
+            location = "group:App"
+            name = "App">
+            <FileRef
+               location = "group:entrypoint.swift">
+            </FileRef>
+            <Group
+               location = "group:Migrations"
+               name = "Migrations">
+               <FileRef
+                  location = "group:CreateTodo.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:configure.swift">
+            </FileRef>
+            <Group
+               location = "group:Sockets"
+               name = "Sockets">
+               <FileRef
+                  location = "group:WebSockets.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:WebSocketConnections.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Models"
+               name = "Models">
+               <FileRef
+                  location = "group:Todo.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:DTOs"
+               name = "DTOs">
+               <FileRef
+                  location = "group:TodoDTO.swift">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Controllers"
+               name = "Controllers">
+               <FileRef
+                  location = "group:TodoController.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:routes.swift">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Tests"
+         name = "Tests">
+         <Group
+            location = "group:AppTests"
+            name = "AppTests">
+            <FileRef
+               location = "group:AppTests.swift">
+            </FileRef>
+         </Group>
+      </Group>
    </Group>
    <FileRef
       location = "group:Template">
