@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SGBackend2",
+    name: "SGBackend2_TimeManagement",
     platforms: [
        .macOS(.v13)
     ],

@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "SGBackend2",
+    name: "SGBackend2_Template",
     platforms: [
        .macOS(.v13)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.99.3"),
-        // 🗄 An ORM for SQL and NoSQL databases.
+        // 🗄 An ORM for SQL and plateNoSQL databases.
         .package(url: "https://github.com/vapor/fluent.git", from: "4.9.0"),
         // 🪶 Fluent driver for SQLite.
         .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.6.0"),

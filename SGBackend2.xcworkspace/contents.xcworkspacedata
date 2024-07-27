@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:TimeManagement">
+   </FileRef>
+   <Group
+      location = "group:UserManagement"
+      name = "UserManagement">
+   </Group>
+   <Group
+      location = "group:TaskManagement"
+      name = "TaskManagement">
+   </Group>
+   <Group
+      location = "group:EventManagement"
+      name = "EventManagement">
+   </Group>
+   <FileRef
+      location = "group:Template">
+   </FileRef>
+   <FileRef
+      location = "group:Readme.md">
+   </FileRef>
+</Workspace>
