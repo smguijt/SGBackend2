@@ -150,7 +150,7 @@
                location = "group:Migrations"
                name = "Migrations">
                <FileRef
-                  location = "group:CreateTodo.swift">
+                  location = "group:/Users/smguijt/Projects/SGSoftware/SGBackend2/SGBackend2/TaskManagement/Sources/App/Migrations/CreateTaskManagementTask.swift">
                </FileRef>
             </Group>
             <FileRef
@@ -170,21 +170,21 @@
                location = "group:Models"
                name = "Models">
                <FileRef
-                  location = "group:Todo.swift">
+                  location = "group:/Users/smguijt/Projects/SGSoftware/SGBackend2/SGBackend2/TaskManagement/Sources/App/Models/TaskManagementTask.swift">
                </FileRef>
             </Group>
             <Group
                location = "group:DTOs"
                name = "DTOs">
                <FileRef
-                  location = "group:TodoDTO.swift">
+                  location = "group:/Users/smguijt/Projects/SGSoftware/SGBackend2/SGBackend2/TaskManagement/Sources/App/DTOs/TaskManagementTaskDTO.swift">
                </FileRef>
             </Group>
             <Group
                location = "group:Controllers"
                name = "Controllers">
                <FileRef
-                  location = "group:TodoController.swift">
+                  location = "group:/Users/smguijt/Projects/SGSoftware/SGBackend2/SGBackend2/TaskManagement/Sources/App/Controllers/TaskManagementTaskController.swift">
                </FileRef>
             </Group>
             <FileRef

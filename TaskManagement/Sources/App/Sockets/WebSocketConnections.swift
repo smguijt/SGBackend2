@@ -4,7 +4,7 @@ import NIOConcurrencyHelpers
 
 final class WebSocketConnections {
     private var connections: [UUID: WebSocket] = [:]
-    private let lock = Lock()
+    private let lock = NIOLock()
 
     func add(_ ws: WebSocket) {
         let id = UUID()
