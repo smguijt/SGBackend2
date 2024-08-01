@@ -12,6 +12,8 @@ struct TaskManagementTaskController: RouteCollection {
         task.get(":taskID", use: self.single)
         task.patch(":taskID", use: self.patch)
         task.delete(":taskID", use: self.delete)
+        
+        task.get("test", ":taskID", use: self.singleToBinary)
 
     }
 
@@ -88,5 +90,12 @@ struct TaskManagementTaskController: RouteCollection {
         
         try await task.save(on: req.db)
         return task.toDTO()
+    }
+    
+    // for testing purpose to generate a test binary entry for wsSocket testing
+    @Sendable
+    func singleToBinary(req: Request) async throws -> String {
+        let taskItem = try await self.single(req: req).toWebSocketTask(method: "create").toBinary()
+        return taskItem?.base64EncodedString() ?? "no-content"
     }
 }

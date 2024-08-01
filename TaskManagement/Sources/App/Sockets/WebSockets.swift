@@ -2,7 +2,7 @@ import Foundation
 import Vapor
 
 func webSocketRoute(_ app: Application) throws {
-    //webSocketEcho(app)
+    webSocketEcho(app)
     webSocketTasks(app)
 }
     
