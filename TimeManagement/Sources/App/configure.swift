@@ -7,16 +7,30 @@ import Vapor
 // configures your application
 public func configure(_ app: Application) async throws {
     
+    app.logger.info("Enable middleware:FileMiddleware")
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
-    app.databases.use(DatabaseConfigurationFactory.sqlite(.file("db.sqlite")), as: .sqlite)
+    app.logger.info("Initialize database")
+    //app.databases.use(DatabaseConfigurationFactory.sqlite(.file("db.sqlite")), as: .sqlite)
+    app.databases.use(.sqlite(.memory), as: .sqlite)
+    
+    /* Create database objects */
+    app.logger.info("Create database objects")
+    app.migrations.add(CreateTaskManagementTask())
 
-    app.migrations.add(CreateTodo())
-
+    /* auto migrate */
+    app.logger.info("automigration executed")
+    try await app.autoMigrate()
+    
+    // serve views
+    app.logger.info("Enable view engine .leaf")
+    app.logger.info("template dir: \(app.leaf.configuration.rootDirectory)")
     app.views.use(.leaf)
+    app.leaf.tags["now"] = NowTag()
 
     // configure default port
-    app.http.server.configuration.port = 5001
+    app.logger.info("Default port set to 5005 for TimeManagement Service")
+    app.http.server.configuration.port = 5005
     
     // shutdown hook to remove all open webSocket connections
     // taken from the WebSocketConnections.swift file
@@ -28,3 +42,4 @@ public func configure(_ app: Application) async throws {
     // register websocket
     try webSocketRoute(app)
 }
+

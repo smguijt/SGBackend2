@@ -5,6 +5,11 @@ struct CreateTaskManagementTask: AsyncMigration {
         try await database.schema("TaskManagementTask")
             .id()
             .field("title", .string, .required)
+            .field("description", .string)
+            .field("userId", .uuid)
+            .field("completed", .bool)
+            .field("createdAt", .datetime, .required)
+            .field("updatedAt", .datetime, .required)
             .create()
     }
 

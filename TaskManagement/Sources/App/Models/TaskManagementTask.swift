@@ -1,4 +1,5 @@
 import Fluent
+import Foundation
 import struct Foundation.UUID
 
 /// Property wrappers interact poorly with `Sendable` checking, causing a warning for the `@ID` property
@@ -11,24 +12,48 @@ final class TaskManagementTask: Model, @unchecked Sendable {
     var id: UUID?
 
     @Field(key: "title")
-    var title: String
+    var title: String?
+    
+    @Field(key: "description")
+    var description: String?
+    
+    @Field(key: "createdAt")
+    var createdAt: Date?
+    
+    @Field(key: "updatedAt")
+    var updatedAt: Date?
     
     @Field(key: "completed")
     var completed: Bool?
+    
+    @Field(key: "userId")
+    var userId: UUID?
 
     init() { }
 
-    init(id: UUID? = nil, title: String, completed: Bool? = false) {
+    init(id: UUID? = nil, 
+         title: String?,
+         description: String?,
+         completed: Bool? = false,
+         userId: UUID?) {
+        
         self.id = id
         self.title = title
+        self.description = description
         self.completed = completed ?? false
+        self.createdAt = Date()
+        self.updatedAt = Date()
+        self.userId = userId
     }
     
     func toDTO() -> TaskManagementTaskDTO {
         .init(
             id: self.id,
-            title: self.$title.value,
-            completed: self.$completed.value ?? false
+            title: self.$title.value as? String,
+            description: self.$description.value as? String,
+            completed: self.$completed.value ?? false,
+            updatedAt: self.$updatedAt.value as? Date,
+            userId: self.$userId.value as? UUID
         )
     }
 }

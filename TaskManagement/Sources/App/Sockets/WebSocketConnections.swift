@@ -44,10 +44,11 @@ struct WebSocketShutdown: LifecycleHandler {
 extension Application {
     
     private struct WebSocketConnectionsKey: StorageKey {
-        typealias Value = WebSocketConnections
+        typealias Value = WebSocketConnections & Sendable
     }
 
-    var webSocketConnections: WebSocketConnections {
+    
+    var webSocketConnections: WebSocketConnections  {
         if let existing = storage[WebSocketConnectionsKey.self] {
             return existing
         } else {
