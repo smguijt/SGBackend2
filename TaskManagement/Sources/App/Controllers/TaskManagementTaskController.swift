@@ -102,10 +102,13 @@ struct TaskManagementTaskController: RouteCollection {
     @Sendable
     func singleToBinary(req: Request) async throws -> String {
         
-        var taskItem = try await self.single(req: req)
-        taskItem.completed = true
+        //var taskItem = try await self.single(req: req)
+        //let taskItemSocket = taskItem.toWebSocketTaskMessage(method: "patch").toBinary()
+        //let taskItemSocket = taskItem.toWebSocketTaskMessage(method: "list").toBinary()
+        //return taskItemSocket?.base64EncodedString() ?? "no-content"
         
-        let taskItemSocket = taskItem.toWebSocketTask(method: "patch").toBinary()
-        return taskItemSocket?.base64EncodedString() ?? "no-content"
+        
+        let taskItemSocket2 = WebSocketTaskManagementTaskMessage(method: "list", type: "task", data: nil).toBinary()
+        return taskItemSocket2?.base64EncodedString() ?? "no-content"
     }
 }

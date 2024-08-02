@@ -9,7 +9,7 @@ struct TaskManagementTaskDTO: Content {
     var updatedAt: Date?
     var userId: UUID?
     
-    func toWebSocketTask(method: String) -> TaskManagementTaskSocket {
+    func toWebSocketTaskMessage(method: String) -> WebSocketTaskManagementTaskMessage {
         .init(method: method, type: "task", data: self)
     }
     

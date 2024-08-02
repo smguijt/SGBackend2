@@ -1,33 +1,7 @@
 import Foundation
 import Vapor
 
-struct TaskManagementTaskSocket: Codable {
-    var method: String
-    var type: String
-    var data: TaskManagementTaskDTO
-    
-    init(method: String, type: String, data: TaskManagementTaskDTO) {
-        self.method = method
-        self.type = type
-        self.data = data
-    }
-    
-    init() {
-        self.method = ""
-        self.type = ""
-        self.data = TaskManagementTaskDTO()
-    }
-    
-    func toBinary() -> Data? {
-        let encoder = JSONEncoder()
-        if let encodedData = try? encoder.encode(self) {
-            print("TaskManagementTaskSocket.toBinary: EncodedString \(encodedData)")
-            return encodedData
-        }
-        return nil
-    }
-   
-}
+
 
 func webSocketTasks(_ app: Application, _ socketName: String = "tasks") {
     
@@ -64,57 +38,89 @@ func webSocketTasks(_ app: Application, _ socketName: String = "tasks") {
             print("WebSocket \(socketName1) -> Ontvangen binaire data -> \(data)")
             
             // Process incoming binary messages...
-            guard let incomingMessage = try? JSONDecoder().decode(TaskManagementTaskSocket.self, from: data) else {
+            guard let incomingMessage = try? JSONDecoder().decode(WebSocketTaskManagementTaskMessage.self, from: data) else {
                 return ws.send("SGBackend2.\(socketName1): unacceptableData")
             }
             
             print("WebSocket \(socketName1) ->  converted binary data: \(incomingMessage)")
             switch incomingMessage.method {
-                case "create":
-                    print("WebSocket \(socketName1) ->  create method!")
-                break;
-                case "delete":
-                    print("WebSocket \(socketName1) ->  delete method!")
-                break;
-                case "patch":
-                    app.logger.info("WebSocket \(socketName1) ->  patch method!")
-                    let paramTaskId = incomingMessage.data.id
-                    app.logger.info(" -- WebSocket \(socketName1) ->  parameter: \(String(describing: paramTaskId?.uuidString))")
-                    
-                    // calling sendable request (async) within a non sendable environment using Task
-                    Task {
-                        guard let task = try await TaskManagementTask.find(paramTaskId, on: app.db) else {
-                            app.logger.error(" -- WebSocket \(socketName1) ->  Record not found for given Id!")
-                            return try await ws.send("SGBackend2.\(socketName1): NoK. \(incomingMessage.method) -> Record not found for given Id!")
-                        }
-                        
-                        app.logger.info(" -- WebSocket \(socketName1) -> Patching record...")
-                        let postedTask = incomingMessage.data
-                        if postedTask.title != nil {
-                            task.title = postedTask.title
-                        }
-                        if postedTask.description != nil {
-                            task.description = postedTask.description
-                        }
-                        if postedTask.completed != nil {
-                            task.completed = postedTask.completed
-                        }
-                        if postedTask.updatedAt != nil {
-                            task.updatedAt = postedTask.updatedAt
-                        } else {
-                            task.updatedAt = Date()
-                        }
-                        if postedTask.userId != nil {
-                           task.userId = postedTask.userId
-                        }
-                        
-                        app.logger.info(" -- WebSocket \(socketName1) -> save changes...")
-                        try await task.save(on: req.db)
-                        
-                        try await ws.send("SGBackend2.\(socketName1): oK. \(incomingMessage.method) -> Record updated")
-                    }
                 
+            case "list":
+                print("WebSocket \(socketName1) ->  list method!")
+                Task {
+                    let list = try await TaskManagementTask.query(on: app.db).all().map { $0.toDTO()}
+                    let retList = WebSocketTaskManagementTaskMessage(method: "list", type: "task", data: nil, list: list).toBinary()
+                    ws.send(retList!)
+                }
                 break;
+                
+            case "create":
+                print("WebSocket \(socketName1) ->  create method!")
+                Task {
+                    let postedTask = incomingMessage.data!.toModel()
+                    postedTask.createdAt = Date()
+                    postedTask.updatedAt = Date()
+                    
+                    app.logger.info(" -- WebSocket \(socketName1) -> save changes...")
+                    try await postedTask.save(on: req.db)
+                    try await ws.send("SGBackend2.\(socketName1): oK. \(incomingMessage.method) -> Record added!")
+                }
+            break;
+                
+            case "delete":
+                print("WebSocket \(socketName1) ->  delete method!")
+                let paramTaskId = incomingMessage.data?.id
+                app.logger.info(" -- WebSocket \(socketName1) ->  parameter: \(String(describing: paramTaskId?.uuidString))")
+                Task {
+                    guard let task = try await TaskManagementTask.find(paramTaskId, on: app.db) else {
+                        app.logger.error(" -- WebSocket \(socketName1) ->  Record not found for given Id!")
+                        return try await ws.send("SGBackend2.\(socketName1): NoK. \(incomingMessage.method) -> Record not found for given Id!")
+                    }
+                    app.logger.info(" -- WebSocket \(socketName1) -> Deleting record...")
+                    try await task.delete(on: req.db)
+                    try await ws.send("SGBackend2.\(socketName1): oK. \(incomingMessage.method) -> Record deleted!")
+                }
+            break;
+                
+            case "patch":
+                app.logger.info("WebSocket \(socketName1) ->  patch method!")
+                let paramTaskId = incomingMessage.data?.id
+                app.logger.info(" -- WebSocket \(socketName1) ->  parameter: \(String(describing: paramTaskId?.uuidString))")
+                
+                // calling sendable request (async) within a non sendable environment using Task
+                Task {
+                    guard let task = try await TaskManagementTask.find(paramTaskId, on: app.db) else {
+                        app.logger.error(" -- WebSocket \(socketName1) ->  Record not found for given Id!")
+                        return try await ws.send("SGBackend2.\(socketName1): NoK. \(incomingMessage.method) -> Record not found for given Id!")
+                    }
+                    
+                    app.logger.info(" -- WebSocket \(socketName1) -> Patching record...")
+                    let postedTask = incomingMessage.data
+                    if postedTask?.title != nil {
+                        task.title = postedTask?.title
+                    }
+                    if postedTask?.description != nil {
+                        task.description = postedTask?.description
+                    }
+                    if postedTask?.completed != nil {
+                        task.completed = postedTask?.completed
+                    }
+                    if postedTask?.updatedAt != nil {
+                        task.updatedAt = postedTask?.updatedAt
+                    } else {
+                        task.updatedAt = Date()
+                    }
+                    if postedTask?.userId != nil {
+                       task.userId = postedTask?.userId
+                    }
+                    
+                    app.logger.info(" -- WebSocket \(socketName1) -> save changes...")
+                    try await task.save(on: req.db)
+                    
+                    try await ws.send("SGBackend2.\(socketName1): oK. \(incomingMessage.method) -> Record updated!")
+                }
+            break;
+                
             default:
                 print("WebSocket \(socketName1) ->  unsupported method!")
             }

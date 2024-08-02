@@ -56,4 +56,8 @@ final class TaskManagementTask: Model, @unchecked Sendable {
             userId: self.$userId.value as? UUID
         )
     }
+    
+    func toWebSocketTaskMessage(method: String) -> WebSocketTaskManagementTaskMessage {
+        .init(method: method, type: "task", data: self.toDTO())
+    }
 }
