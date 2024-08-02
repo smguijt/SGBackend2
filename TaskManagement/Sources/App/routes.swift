@@ -3,16 +3,10 @@ import Vapor
 
 func routes(_ app: Application) throws {
     
-    // register http routes
     app.get { req async throws in
-        try await req.view.render("index", ["title": "Hello Vapor!"])
-    }
-
-    app.get("hello") { req async -> String in
-        "Hello, world!"
+        try await req.view.render("landingpage")
     }
     
-    
-
-    try app.register(collection: TaskManagementTaskController())
+    try app.register(collection: TaskManagementTaskApiController())
+    try app.register(collection: TaskManagementSettingsApiController())
 }

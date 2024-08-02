@@ -1,7 +1,7 @@
 import Fluent
 import Vapor
 
-struct TaskManagementTaskController: RouteCollection {
+struct TaskManagementTaskApiController: RouteCollection {
     
     func boot(routes: RoutesBuilder) throws {
         
@@ -15,11 +15,8 @@ struct TaskManagementTaskController: RouteCollection {
         task.get(":taskID", use: self.single)
         task.patch(":taskID", use: self.patch)
         task.delete(":taskID", use: self.delete)
-        
-        
+                
         task.get("test", ":taskID", use: self.singleToBinary)
-        
-
     }
 
     @Sendable
@@ -102,12 +99,12 @@ struct TaskManagementTaskController: RouteCollection {
     @Sendable
     func singleToBinary(req: Request) async throws -> String {
         
+        // example to send a patch request
         //var taskItem = try await self.single(req: req)
         //let taskItemSocket = taskItem.toWebSocketTaskMessage(method: "patch").toBinary()
-        //let taskItemSocket = taskItem.toWebSocketTaskMessage(method: "list").toBinary()
         //return taskItemSocket?.base64EncodedString() ?? "no-content"
         
-        
+        // example to send a list request
         let taskItemSocket2 = WebSocketTaskManagementTaskMessage(method: "list", type: "task", data: nil).toBinary()
         return taskItemSocket2?.base64EncodedString() ?? "no-content"
     }

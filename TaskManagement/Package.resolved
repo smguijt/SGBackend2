@@ -1,5 +1,5 @@
 {
-  "originHash" : "9df5ef78b19a6e0b3ab60a42be23ae515f7d1446dd6031eaa81861abc835dc04",
+  "originHash" : "66a8475ef61b5dc53c3d98e83ec7eebf91d05856ee63c2f131d37a250ea04a16",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -62,6 +62,15 @@
       "state" : {
         "revision" : "dd799be2a92e7207ad86c567e4fc7dd37413ff60",
         "version" : "4.4.0"
+      }
+    },
+    {
+      "identity" : "leaf-error-middleware",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/brokenhandsio/leaf-error-middleware.git",
+      "state" : {
+        "revision" : "fe1dc231db665be74eafb565dbba552e272da6cf",
+        "version" : "4.1.1"
       }
     },
     {

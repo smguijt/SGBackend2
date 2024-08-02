@@ -2,6 +2,7 @@ import NIOSSL
 import Fluent
 import FluentSQLiteDriver
 import Leaf
+import LeafErrorMiddleware
 import Vapor
 
 // configures your application
@@ -9,6 +10,16 @@ public func configure(_ app: Application) async throws {
     
     app.logger.info("Enable middleware:FileMiddleware")
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    
+    /* serve error pages */
+    app.logger.info("Enable middleware:LeafErrorMiddleware")
+    let mappings: [HTTPStatus: String] = [
+        .notFound: "404",
+        .unauthorized: "401",
+        .forbidden: "403",
+        .internalServerError: "serverError"
+    ]
+    app.middleware.use(LeafErrorMiddlewareDefaultGenerator.build(errorMappings: mappings))
 
     app.logger.info("Initialize database")
     //app.databases.use(DatabaseConfigurationFactory.sqlite(.file("db.sqlite")), as: .sqlite)
@@ -17,6 +28,12 @@ public func configure(_ app: Application) async throws {
     /* Create database objects */
     app.logger.info("Create database objects")
     app.migrations.add(CreateTaskManagementTask())
+    app.migrations.add(CreateTaskManagementSettings())
+    app.migrations.add(CreateTaskManagementUserSettings())
+    
+    /* Seed database objects */
+    app.migrations.add(SeedTaskManagementSettings())
+    app.migrations.add(SeedTaskManagementUserSettings())
 
     /* auto migrate */
     app.logger.info("automigration executed")
@@ -27,6 +44,7 @@ public func configure(_ app: Application) async throws {
     app.logger.info("template dir: \(app.leaf.configuration.rootDirectory)")
     app.views.use(.leaf)
     app.leaf.tags["now"] = NowTag()
+    app.leaf.tags["appNameTag"] = AppNameTag()
 
     // configure default port
     app.logger.info("Default port set to 5003 for TaskManager Service")
