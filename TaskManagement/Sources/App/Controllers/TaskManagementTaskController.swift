@@ -4,23 +4,29 @@ import Vapor
 struct TaskManagementTaskController: RouteCollection {
     
     func boot(routes: RoutesBuilder) throws {
-        let tasks = routes.grouped("tasks")
+        
+        let api = routes.grouped("api")
+        let tasks = api.grouped("tasks")
         tasks.get(use: self.index)
         
-        let task = routes.grouped("task")
+        
+        let task = api.grouped("task")
         task.post(use: self.create)
         task.get(":taskID", use: self.single)
         task.patch(":taskID", use: self.patch)
         task.delete(":taskID", use: self.delete)
         
+        
         task.get("test", ":taskID", use: self.singleToBinary)
+        
 
     }
 
     @Sendable
     func index(req: Request) async throws -> [TaskManagementTaskDTO] {
         req.logger.info("TaskManagementTask.Index")
-        return try await TaskManagementTask.query(on: req.db).all().map { $0.toDTO() }
+        let list = try await TaskManagementTask.query(on: req.db).all().map { $0.toDTO() }
+        return list
     }
 
     @Sendable
@@ -95,7 +101,11 @@ struct TaskManagementTaskController: RouteCollection {
     // for testing purpose to generate a test binary entry for wsSocket testing
     @Sendable
     func singleToBinary(req: Request) async throws -> String {
-        let taskItem = try await self.single(req: req).toWebSocketTask(method: "create").toBinary()
-        return taskItem?.base64EncodedString() ?? "no-content"
+        
+        var taskItem = try await self.single(req: req)
+        taskItem.completed = true
+        
+        let taskItemSocket = taskItem.toWebSocketTask(method: "patch").toBinary()
+        return taskItemSocket?.base64EncodedString() ?? "no-content"
     }
 }
