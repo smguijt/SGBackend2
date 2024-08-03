@@ -7,6 +7,7 @@ struct CreateTaskManagementUserSettings: AsyncMigration {
             .id()
             .field("key", .string, .required)
             .field("value", .string, .required)
+            .field("userId", .uuid )
             .create()
     }
 

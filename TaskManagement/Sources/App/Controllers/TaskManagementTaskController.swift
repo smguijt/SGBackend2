@@ -14,6 +14,6 @@ struct TaskManagementTaskController: RouteCollection {
     func index(req: Request) async throws -> View {
         
         let mySettingsDTO = try await getTaskManagementSettings(req: req)
-        return try await req.view.render("index", BaseContext(title: "Task Management Service", settings: mySettingsDTO))
+        return try await req.view.render("TaskManagementIndex", BaseContext(title: "Task Management", settings: mySettingsDTO))
     }
 }
