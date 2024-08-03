@@ -113,6 +113,9 @@ func webSocketTasks(_ app: Application, _ socketName: String = "tasks") {
                     if postedTask?.userId != nil {
                        task.userId = postedTask?.userId
                     }
+                    if postedTask?.dueDate != nil {
+                       task.dueDate = postedTask?.dueDate
+                    }
                     
                     app.logger.info(" -- WebSocket \(socketName1) -> save changes...")
                     try await task.save(on: req.db)

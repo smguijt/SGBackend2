@@ -28,6 +28,9 @@ final class TaskManagementTask: Model, @unchecked Sendable {
     
     @Field(key: "userId")
     var userId: UUID?
+    
+    @Field(key: "dueDate")
+    var dueDate: Date?
 
     init() { }
 
@@ -35,7 +38,8 @@ final class TaskManagementTask: Model, @unchecked Sendable {
          title: String?,
          description: String?,
          completed: Bool? = false,
-         userId: UUID?) {
+         userId: UUID?,
+         dueDate: Date?) {
         
         self.id = id
         self.title = title
@@ -44,6 +48,8 @@ final class TaskManagementTask: Model, @unchecked Sendable {
         self.createdAt = Date()
         self.updatedAt = Date()
         self.userId = userId
+        self.dueDate = dueDate
+        
     }
     
     func toDTO() -> TaskManagementTaskDTO {
@@ -53,7 +59,8 @@ final class TaskManagementTask: Model, @unchecked Sendable {
             description: self.$description.value as? String,
             completed: self.$completed.value ?? false,
             updatedAt: self.$updatedAt.value as? Date,
-            userId: self.$userId.value as? UUID
+            userId: self.$userId.value as? UUID,
+            dueDate: (self.$dueDate.value!!)
         )
     }
     

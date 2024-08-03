@@ -3,7 +3,7 @@ import Vapor
 
 struct TaskManagementUserSettingsDTO: Content {
     
-    var id: UUID?
+    //var ID: UUID?
     var ShowMessages: Bool
     var ShowApps: Bool
     var ShowNotifications : Bool
@@ -13,7 +13,8 @@ struct TaskManagementUserSettingsDTO: Content {
     var ClientId: String
     var ClientSecret: String
 
-    init(userId: UUID,
+    init(//ID: UUID?,
+         userId: UUID,
          ShowMessages: Bool = false,
          ShowApps: Bool = false,
          ShowNotifications: Bool = false,
@@ -21,7 +22,8 @@ struct TaskManagementUserSettingsDTO: Content {
          UseOAUTH02: Bool = false,
          ClientId: String = "",
          ClientSecret: String = "") {
-
+        
+        //self.ID = ID
         self.ShowMessages = ShowMessages
         self.ShowApps = ShowApps
         self.ShowNotifications = ShowNotifications

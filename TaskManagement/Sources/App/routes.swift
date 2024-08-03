@@ -7,6 +7,11 @@ func routes(_ app: Application) throws {
         try await req.view.render("landingpage")
     }
     
+    /* setup API controllers */
     try app.register(collection: TaskManagementTaskApiController())
     try app.register(collection: TaskManagementSettingsApiController())
+    
+    /* setup VIEW controllers */
+    try app.register(collection: TaskManagementTaskController())
+    try app.register(collection: TaskManagementTaskSettingsController())
 }

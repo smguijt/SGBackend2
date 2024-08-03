@@ -7,6 +7,9 @@ func getTaskManagementSettings(req: Request) async throws -> TaskManagementSetti
     var mySettingDTO: TaskManagementSettingsDTO = TaskManagementSettingsDTO()
     _ = try await TaskManagementSettings.query(on: req.db).all().compactMap{ setting in
         
+            /* map ID */
+            //mySettingDTO.ID = setting.id
+        
             /* ShowToolbar*/
             if setting.key == TaskManagementEnumSettings.ShowToolbar.rawValue {
                 mySettingDTO.ShowToolbar = Bool(setting.value.lowercased()) ?? false

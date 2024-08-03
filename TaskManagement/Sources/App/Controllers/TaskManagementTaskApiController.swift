@@ -90,6 +90,9 @@ struct TaskManagementTaskApiController: RouteCollection {
         if postedTask.userId != nil {
            task.userId = postedTask.userId
         }
+        if postedTask.dueDate != nil {
+           task.dueDate = postedTask.dueDate
+        }
         
         try await task.save(on: req.db)
         return task.toDTO()

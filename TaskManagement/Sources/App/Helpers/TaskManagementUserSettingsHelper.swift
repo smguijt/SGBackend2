@@ -11,6 +11,11 @@ func getTaskManagementUserSettings(req: Request, userId: UUID) async throws -> T
             .filter(\.$userId == userId)
             .all()
             .compactMap { setting in
+                
+                /* map ID */
+                //myUserSettingDTO.ID = setting.id
+                myUserSettingDTO.userId = userId
+                
                 /* ShowMessages*/
                 if setting.key == TaskManagementEnumSettings.ShowMessages.rawValue {
                     myUserSettingDTO.ShowMessages = Bool(setting.value.lowercased()) ?? false

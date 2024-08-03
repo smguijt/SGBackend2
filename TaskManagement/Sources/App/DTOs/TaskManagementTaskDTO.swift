@@ -8,6 +8,7 @@ struct TaskManagementTaskDTO: Content {
     var completed: Bool?
     var updatedAt: Date?
     var userId: UUID?
+    var dueDate: Date?
     
     func toWebSocketTaskMessage(method: String) -> WebSocketTaskManagementTaskMessage {
         .init(method: method, type: "task", data: self)
@@ -31,6 +32,9 @@ struct TaskManagementTaskDTO: Content {
         }
         if let userId = self.userId {
             model.userId = userId
+        }
+        if let dueDate = self.dueDate {
+            model.dueDate = dueDate
         }
         return model
     }

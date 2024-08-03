@@ -2,7 +2,7 @@ import Foundation
 import Fluent
 
 final class TaskManagementUserSettings: Model, @unchecked Sendable {
-    static let schema = "user_settings"
+    static let schema = "TaskManagementUserSettings"
     
     @ID(key: .id)
     var id: UUID?
@@ -23,6 +23,15 @@ final class TaskManagementUserSettings: Model, @unchecked Sendable {
         self.key = key
         self.value = value
         self.userId = userId
+    }
+    
+    func toDTO() -> TaskManagementDictDTO {
+        .init(
+            ID: self.id,
+            key: self.key,
+            value: self.value,
+            userId: self.userId
+        )
     }
 
 }

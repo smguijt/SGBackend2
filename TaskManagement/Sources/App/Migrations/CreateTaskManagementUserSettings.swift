@@ -3,7 +3,7 @@ import Foundation
 
 struct CreateTaskManagementUserSettings: AsyncMigration {
     func prepare(on database: Database) async throws {
-        try await database.schema("TaskManagementSettings")
+        try await database.schema("TaskManagementUserSettings")
             .id()
             .field("key", .string, .required)
             .field("value", .string, .required)
@@ -11,7 +11,7 @@ struct CreateTaskManagementUserSettings: AsyncMigration {
     }
 
     func revert(on database: Database) async throws {
-        try await database.schema("TaskManagementSettings").delete()
+        try await database.schema("TaskManagementUserSettings").delete()
     }
 }
 
@@ -52,7 +52,7 @@ struct SeedTaskManagementUserSettings: AsyncMigration {
     }
     
     func revert(on db: Database) async throws {
-        try await TaskManagementSettings.query(on: db).delete()
+        try await TaskManagementUserSettings.query(on: db).delete()
     }
     
 }
